@@ -53,11 +53,9 @@ $botman->hears('Show me BATMAN', function ($bot) {
         'custom_payload' => true,
     ]);
 
-// Build message object
     $message = OutgoingMessage::create('Batman')
         ->withAttachment($attachment);
 
-// Reply message object
     $bot->reply($message);
 
 });
