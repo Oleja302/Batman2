@@ -38,7 +38,7 @@ $botman->hears('music', function ($bot) {
     ]);
 
 // Build message object
-    $message = OutgoingMessage::create('This is my text')
+    $message = OutgoingMessage::create('Its my life!')
         ->withAttachment($attachment);
 
 // Reply message object
