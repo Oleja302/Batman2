@@ -3,7 +3,9 @@ use App\Http\Controllers\BotManController;
 use BotMan\BotMan\Messages\Attachments\Audio;
 use BotMan\BotMan\Messages\Attachments\Image;
 use BotMan\BotMan\Messages\Attachments\Video;
+use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Outgoing\OutgoingMessage;
+use BotMan\BotMan\Messages\Outgoing\Question;
 
 $botman = resolve('botman');
 
@@ -28,9 +30,23 @@ $botman->hears('Hi', function ($bot) {
     $bot->reply ('Zik hi!');
 
     $products = \App\Product::all();
-    foreach ($products as $product)
-        $bot->reply($product->name."\n".$product->description."\n".$product->price."\n".$product->img_url);
+    foreach ($products as $product) {
 
+        $question = Question::create($product->name )
+            ->addButtons([
+                Button::create('Посмотреть товар')->value('/show '.$product->id)
+                ]);
+
+        $bot->reply($question);
+
+    }
+
+});
+
+$botman->hears("/show ([0-9]+)", function ($bot,$id){
+   $product = \App\Product::find($id);
+
+    $bot->reply($product->name . "\n" . $product->description . "\n" . $product->price . "\n" . $product->img_url);
 });
 
 $botman->hears('music', function ($bot) {
