@@ -27,17 +27,32 @@ $botman->hears('Batman', function ($bot) {
 });
 
 $botman->hears('Hi', function ($bot) {
-    $bot->reply ('Zik hi!');
+
+    $telegramUser = $bot->getUser();
+    $chatId = $telegramUser->getId();
 
     $products = \App\Product::all();
     foreach ($products as $product) {
 
-        $question = Question::create($product->img_url )
-            ->addButtons([
-                Button::create('Посмотреть товар')->value('/show '.$product->id)
-                ]);
+        $keybord = [
+            [
+                ['text' => "\xF0\x9F\x91\x89Детальнее", 'callback_data' => "/show " . $product->id],
 
-        $bot->reply($question);
+            ],
+        ];
+
+        $bot->sendRequest("sendPhoto",
+            [
+                "chat_id" => "$chatId",
+                "photo" => $product->img_url,
+                'reply_markup' => json_encode([
+                    'inline_keyboard' =>
+                        $keybord
+                ])
+            ]);
+
+
+
 
     }
 
