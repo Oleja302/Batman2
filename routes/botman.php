@@ -52,6 +52,12 @@ $botman->hears('Hi', function ($bot) {
             ]);
 
 
+        $bot->sendRequest("sendAudio",
+            [
+                "chat_id" => "$chatId",
+                "audio" => "https://dl2.ru-music.xn--41a.ws/mp3/3930.mp3",
+
+            ]);
 
 
     }
