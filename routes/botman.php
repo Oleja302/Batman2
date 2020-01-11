@@ -29,7 +29,7 @@ $botman->hears('Hi', function ($bot) {
 
     $products = \App\Product::all();
     foreach ($products as $product)
-        $bot->reply($product->title."\n".$product->img_url);
+        $bot->reply($product->name."\n".$product->description."\n".$product->price."\n".$product->img_url);
 
 });
 
