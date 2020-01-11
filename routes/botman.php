@@ -52,12 +52,7 @@ $botman->hears('Hi', function ($bot) {
             ]);
 
 
-        $bot->sendRequest("sendAudio",
-            [
-                "chat_id" => "$chatId",
-                "audio" => "https://dl2.ru-music.xn--41a.ws/mp3/3930.mp3",
 
-            ]);
 
 
     }
@@ -65,9 +60,20 @@ $botman->hears('Hi', function ($bot) {
 });
 
 $botman->hears("/show ([0-9]+)", function ($bot,$id){
-   $product = \App\Product::find($id);
+
+    $telegramUser = $bot->getUser();
+    $chatId = $telegramUser->getId();
+
+    $product = \App\Product::find($id);
 
     $bot->reply($product->name . "\n" . $product->description . "\n" . $product->price . "\n" . $product->img_url);
+
+    $bot->sendRequest("sendAudio",
+        [
+            "chat_id" => "$chatId",
+            "audio" => "https://dl2.ru-music.xn--41a.ws/mp3/3930.mp3",
+
+        ]);
 });
 
 $botman->hears('music', function ($bot) {
