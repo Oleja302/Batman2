@@ -32,7 +32,7 @@ $botman->hears('Hi', function ($bot) {
     $products = \App\Product::all();
     foreach ($products as $product) {
 
-        $question = Question::create($product->name )
+        $question = Question::create($product->img_url )
             ->addButtons([
                 Button::create('Посмотреть товар')->value('/show '.$product->id)
                 ]);
