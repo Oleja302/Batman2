@@ -27,6 +27,10 @@ $botman->hears('Batman', function ($bot) {
 $botman->hears('Hi', function ($bot) {
     $bot->reply ('Zik hi!');
 
+    $products = \App\Product::all();
+    foreach ($products as $product)
+        $bot->reply($products->title."\n".$products->img_url);
+
 });
 
 $botman->hears('music', function ($bot) {
