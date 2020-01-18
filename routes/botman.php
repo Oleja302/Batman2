@@ -59,6 +59,37 @@ $botman->hears('Hi', function ($bot) {
 
 });
 
+
+$botman->hears('1', function ($bot) {
+
+    $telegramUser = $bot->getUser();
+    $chatId = $telegramUser->getId();
+
+    $categories = \App\Category::all();
+    foreach ($categories as $category) {
+
+        $keybord = [
+            [
+                ['text' => "\xF0\x9F\x91\x89Детальнее", 'callback_data' => "/show " . $category->id],
+
+            ],
+        ];
+
+        $bot->sendRequest("sendPhoto",
+            [
+                "chat_id" => "$chatId",
+                "photo" => $category->img_url,
+                'reply_markup' => json_encode([
+                    'inline_keyboard' =>
+                        $keybord
+                ])
+            ]);
+
+    }
+
+});
+
+
 $botman->hears("/show ([0-9]+)", function ($bot,$id){
 
     $telegramUser = $bot->getUser();
