@@ -95,7 +95,7 @@ $botman->hears('/show_in_category ([0-9]+)', function ($bot, $categoryid) {
     $telegramUser = $bot->getUser();
     $chatId = $telegramUser->getId();
 
-    $products = (\App\Category::with(['products'])->where("id",$categoryid)->first())->products;
+    $products = (\App\Category::with(['products'])->where("id",$categoryid)->first())->products()->get();
 
     foreach ($products as $product) {
 
