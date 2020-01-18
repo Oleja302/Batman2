@@ -70,7 +70,7 @@ $botman->hears('1', function ($bot) {
 
         $keybord = [
             [
-                ['text' => "\xF0\x9F\x91\x89Детальнее", 'callback_data' => "/show " . $category->id],
+                ['text' => "\xF0\x9F\x91\x89Детальнее в категории", 'callback_data' => "/show " . $category->id],
 
             ],
         ];
