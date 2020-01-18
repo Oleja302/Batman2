@@ -20,7 +20,10 @@ class Product extends Model
 
     public function categories (){
 
-        return $this->belongsToMany('App\Category', "product_in_categories", "id", "category_id");
+
+
+            return $this->belongsToMany('App\Category', "product_in_categories", "product_id", "category_id");
+
 
     }
 

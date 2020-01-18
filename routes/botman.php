@@ -70,7 +70,7 @@ $botman->hears('1', function ($bot) {
 
         $keybord = [
             [
-                ['text' => "\xF0\x9F\x91\x89Детальнее в категории", 'callback_data' => "/show " . $category->id],
+                ['text' => "\xF0\x9F\x91\x89Детальнее в категории", 'callback_data' => "/show_in_category " . $category->id],
 
             ],
         ];
@@ -84,6 +84,41 @@ $botman->hears('1', function ($bot) {
                         $keybord
                 ])
             ]);
+
+    }
+
+});
+
+
+$botman->hears('/show_in_category ([0-9]+)', function ($bot, $categoryid) {
+
+    $telegramUser = $bot->getUser();
+    $chatId = $telegramUser->getId();
+
+    $products = (\App\Category::with(['products'])->where("id",$categoryid)->first())->products()->all();
+
+    foreach ($products as $product) {
+
+        $keybord = [
+            [
+                ['text' => "\xF0\x9F\x91\x89Детальнее", 'callback_data' => "/show " . $product->id],
+
+            ],
+        ];
+
+        $bot->sendRequest("sendPhoto",
+            [
+                "chat_id" => "$chatId",
+                "photo" => $product->img_url,
+                'reply_markup' => json_encode([
+                    'inline_keyboard' =>
+                        $keybord
+                ])
+            ]);
+
+
+
+
 
     }
 
