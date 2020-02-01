@@ -31,6 +31,13 @@ $botman->hears('Hi', function ($bot) {
     $telegramUser = $bot->getUser();
     $chatId = $telegramUser->getId();
 
+    $mycomp = new MyComputer();
+    $comp = new Computer();
+
+
+    $bot->reply($mycomp->enable());
+    $bot->reply($comp->enable());
+
     $products = \App\Product::all();
     foreach ($products as $product) {
 
@@ -177,3 +184,4 @@ $botman->hears('single response', function (BotMan $bot) {
     $bot->reply("Tell me more!");
 });
 $botman->hears('Start conversation', BotManController::class.'@startConversation');
+
